@@ -6,7 +6,7 @@ export const config = {
   },
 };
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   const HUDU_API_KEY = "🔑 כאן שים את המפתח שלך";
   const HUDU_BASE_URL = "https://get-mor.huducloud.com";
 
