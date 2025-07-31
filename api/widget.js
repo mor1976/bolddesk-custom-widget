@@ -5,13 +5,17 @@ export const config = {
 };
 
 module.exports = async (req, res) => {
-  const body = req.body;
-
   res.setHeader("Content-Type", "text/html");
 
-  // בדיקה בסיסית להצגת כל הנתונים שנשלחו מהטיקט
-  res.send(`
-    <h3>Payload שהתקבל מהטיקט:</h3>
-    <pre>${JSON.stringify(body, null, 2)}</pre>
-  `);
+  try {
+    const body = req.body;
+
+    res.status(200).send(`
+      <h3>BoldDesk Widget Debug</h3>
+      <p>קיבלנו את הפנייה בהצלחה.</p>
+      <pre>${JSON.stringify(body, null, 2)}</pre>
+    `);
+  } catch (err) {
+    res.status(500).send(`<h3>שגיאה בשרת:</h3><pre>${err.message}</pre>`);
+  }
 };
