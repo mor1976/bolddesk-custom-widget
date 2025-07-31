@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');  // ← הוספה חשובה
+import { fetch } from 'undici';
 
 export const config = {
   api: {
