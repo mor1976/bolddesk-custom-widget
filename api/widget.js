@@ -5,7 +5,7 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-  const HUDU_API_KEY = "🔑 פה שים את המפתח שלך";
+  const HUDU_API_KEY = "jnepYHEetXeHXuyFwUwGWUUm";
   const HUDU_BASE_URL = "https://get-mor.huducloud.com";
 
   const email = req.body?.ticket?.requester?.email;
