@@ -1,5 +1,15 @@
 {
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/widget.js",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
-    { "src": "/widget", "dest": "/api/widget.js" }
+    {
+      "src": "/widget",
+      "dest": "api/widget.js"
+    }
   ]
 }
