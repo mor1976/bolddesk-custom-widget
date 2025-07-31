@@ -12,4 +12,9 @@ module.exports = async (req, res) => {
   res.setHeader("Content-Type", "text/html");
 
   if (!email) {
-    res.status(400).send(`<h3>שגיאה</h3><p>לא התקבלה כתוב
+    res.status(400).send(`<h3>שגיאה</h3><p>לא התקבלה כתובת מייל מהטיקט.</p>`);
+    return;
+  }
+
+  res.send(`<h3>המייל שהתקבל:</h3><p>${email}</p>`);
+};
