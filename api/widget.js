@@ -1,3 +1,5 @@
+// api/widget.js
+
 import { fetch } from 'undici';
 
 export const config = {
@@ -7,7 +9,7 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-  const HUDU_API_KEY = "🔑 כאן שים את המפתח שלך";
+  const HUDU_API_KEY = "🔑 פה שים את המפתח שלך";
   const HUDU_BASE_URL = "https://get-mor.huducloud.com";
 
   const email = req.body?.ticket?.requester?.email;
@@ -46,4 +48,4 @@ export default async function handler(req, res) {
     console.error(err);
     res.status(500).send(`<h3>שגיאה בשרת</h3><p>${err.message}</p>`);
   }
-};
+}
