@@ -7,12 +7,10 @@ export const config = {
 module.exports = async (req, res) => {
   res.setHeader("Content-Type", "text/html");
 
-  const email = req.body?.ticket?.requester?.email;
+  const body = req.body;
 
-  if (!email) {
-    res.status(400).send(`<h3>שגיאה</h3><p>לא התקבלה כתובת מייל מהטיקט</p><pre>${JSON.stringify(req.body, null, 2)}</pre>`);
-    return;
-  }
-
-  res.send(`<h3>האימייל שהתקבל:</h3><p>${email}</p>`);
+  res.send(`
+    <h3>Payload שהתקבל מהטיקט:</h3>
+    <pre>${JSON.stringify(body, null, 2)}</pre>
+  `);
 };
