@@ -1,7 +1,3 @@
-// api/widget.js
-// פשוט השתמש ב-fetch בלי לייבא אותו:
-const response = await fetch(...);
-
 export const config = {
   api: {
     bodyParser: true,
@@ -27,25 +23,4 @@ export default async function handler(req, res) {
       headers: {
         "X-API-KEY": HUDU_API_KEY,
         "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Hudu API error: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    if (data.length === 0) {
-      res.send(`<h3>לא נמצא משתמש עבור</h3><p>${email}</p>`);
-      return;
-    }
-
-    const person = data[0];
-    res.send(`<h3>נמצא משתמש</h3><p>${person.name} - ${person.email}</p>`);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send(`<h3>שגיאה בשרת</h3><p>${err.message}</p>`);
-  }
-}
+        "Accept": "application/json",
