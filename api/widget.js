@@ -1,4 +1,4 @@
-const fetch = require("node-fetch");
+const fetch = require('node-fetch');  // ← הוספה חשובה
 
 export const config = {
   api: {
@@ -15,15 +15,16 @@ module.exports = async (req, res) => {
   res.setHeader("Content-Type", "text/html");
 
   if (!email) {
-    res.status(400).send("<h3>שגיאה</h3><p>לא התקבלה כתובת מייל מהטיקט</p>");
+    res.status(400).send("<h3>לא נמצא אימייל בטיקט</h3>");
     return;
   }
 
   try {
-    const response = await fetch(`${HUDU_BASE_URL}/api/v1/people/search?email=${email}`, {
+    const response = await fetch(`${HUDU_BASE_URL}/api/v1/people/search?query=${email}`, {
       method: "GET",
       headers: {
         "X-API-KEY": HUDU_API_KEY,
+        "Content-Type": "application/json",
         Accept: "application/json",
       },
     });
@@ -35,20 +36,14 @@ module.exports = async (req, res) => {
     const data = await response.json();
 
     if (data.length === 0) {
-      res.send(`<h3>לא נמצאו אנשים</h3><p>עבור המייל: ${email}</p>`);
+      res.send(`<h3>לא נמצא משתמש עבור</h3><p>${email}</p>`);
       return;
     }
 
     const person = data[0];
-    res.send(`
-      <h3>נמצא משתמש</h3>
-      <p>שם: ${person.name}</p>
-      <p>מייל: ${person.email}</p>
-      <p>חברה: ${person.company_name}</p>
-      <p>תפקיד: ${person.job_title || "לא צויין"}</p>
-    `);
+    res.send(`<h3>נמצא משתמש</h3><p>${person.name} - ${person.email}</p>`);
   } catch (err) {
     console.error(err);
-    res.status(500).send("<h3>שגיאה בשרת</h3><p>בדוק את הלוגים או את הגדרות ה־API</p>");
+    res.status(500).send(`<h3>שגיאה בשרת</h3><p>${err.message}</p>`);
   }
 };
