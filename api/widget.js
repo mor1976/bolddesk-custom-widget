@@ -1,15 +1,18 @@
+export const config = {
+  api: {
+    bodyParser: true,
+  },
+};
+
 module.exports = async (req, res) => {
-  res.setHeader("Content-Type", "application/json");
+  res.setHeader("Content-Type", "text/html");
 
-  console.log("BODY:", req.body); // אפשר גם למחוק את זה אחרי הדיבוג
+  const email = req.body?.ticket?.requester?.email;
 
-  // בדיקה בסיסית:
-  if (!req.body || !req.body.ticket || !req.body.ticket.requester || !req.body.ticket.requester.email) {
-    res.status(400).json({ error: "Missing requester email", body: req.body });
+  if (!email) {
+    res.status(400).send(`<h3>שגיאה</h3><p>לא התקבלה כתובת מייל מהטיקט</p><pre>${JSON.stringify(req.body, null, 2)}</pre>`);
     return;
   }
 
-  const email = req.body.ticket.requester.email;
-
-  res.status(200).send(`<h3>האימייל שהתקבל:</h3><p>${email}</p>`);
+  res.send(`<h3>האימייל שהתקבל:</h3><p>${email}</p>`);
 };
