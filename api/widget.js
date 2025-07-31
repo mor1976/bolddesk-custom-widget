@@ -1,6 +1,9 @@
 const HUDU_API_KEY = "VKdnHFjpJQvZNsNQyvxi4F6";
 const HUDU_BASE_URL = "https://get-mor.huducloud.com";
 
+// אם אתה צריך fetch: זה מביא את fetch גם בסביבת Node
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+
 module.exports = async function (req, res) {
   try {
     const email = req.body?.ticket?.requester?.email;
@@ -25,31 +28,8 @@ module.exports = async function (req, res) {
 
     if (!response.ok) throw new Error(`Hudu API Error: ${response.status}`);
     const data = await response.json();
+
     if (!Array.isArray(data) || data.length === 0) {
       return res.send(`
         <html dir="rtl"><body>
-          <h2>😕 לא נמצאה התאמה</h2>
-          <p>לא נמצאו משתמשים עבור <b>${email}</b></p>
-        </body></html>
-      `);
-    }
-
-    const person = data[0];
-    return res.send(`
-      <html dir="rtl"><body>
-        <h2>👤 ${person.name}</h2>
-        <p><b>טלפון:</b> ${person.phone || "לא צויין"}</p>
-        <p><b>תפקיד:</b> ${person.title || "לא צויין"}</p>
-      </body></html>
-    `);
-
-  } catch (error) {
-    console.error("שגיאה:", error);
-    return res.status(500).send(`
-      <html dir="rtl"><body>
-        <h2>❌ שגיאת שרת</h2>
-        <p>${error.message}</p>
-      </body></html>
-    `);
-  }
-};
+          <h2>😕 ל
