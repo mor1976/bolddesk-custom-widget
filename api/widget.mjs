@@ -5,7 +5,7 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-  const HUDU_API_KEY = "🔑 שים כאן את ה-API KEY שלך";
+  const HUDU_API_KEY = "VKdnhF1jpJQVzWSNqVyxi4F6";
   const HUDU_BASE_URL = "https://get-mor.huducloud.com";
 
   console.log("📦 Payload שהתקבל:", JSON.stringify(req.body, null, 2));
