@@ -1,6 +1,6 @@
 // api/widget.js
-
-import { fetch } from 'undici';
+// פשוט השתמש ב-fetch בלי לייבא אותו:
+const response = await fetch(...);
 
 export const config = {
   api: {
